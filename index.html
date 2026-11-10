@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VidNest – Video downloader for Android</title>
+<meta name="description" content="Paste a link, keep the video. VidNest saves videos and music from YouTube, Instagram, Facebook and more to your Android phone.">
+<meta name="theme-color" content="#0B0F11">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='10' width='52' height='44' rx='12' fill='%230ABAB5'/%3E%3Cpath d='M32 20v18m-8-6 8 8 8-8' stroke='%232F3437' stroke-width='5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0B0F11;--deep:#101A1C;--slate:#2F3437;--tf:#0ABAB5;--mist:#E6F2F1;--dim:#8CA3A2;--line:rgba(10,186,181,.2);color-scheme:dark}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--mist);font:400 17px/1.6 Figtree,system-ui,sans-serif;overflow-x:hidden}
+h1,h2,h3{font-family:'Bricolage Grotesque',Figtree,system-ui,sans-serif;line-height:1.05;letter-spacing:-.02em}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--tf);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--tf);color:#04201F;font-weight:600;text-decoration:none;padding:15px 26px;border-radius:16px;box-shadow:0 10px 40px -8px rgba(10,186,181,.55);transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 16px 48px -8px rgba(10,186,181,.75)}
+.btn svg{width:20px;height:20px}
+.ghost{background:none;color:var(--mist);box-shadow:inset 0 0 0 1.5px var(--line)}
+.ghost:hover{box-shadow:inset 0 0 0 1.5px var(--tf)}
+nav{position:sticky;top:0;z-index:20;background:rgba(11,15,17,.78);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.05)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:66px}
+.brand{font:800 22px 'Bricolage Grotesque',sans-serif;text-decoration:none}.brand b{color:var(--tf)}
+nav ul{display:flex;gap:26px;list-style:none;padding:0;font-size:15px;color:var(--dim)}
+nav ul a{text-decoration:none}nav ul a:hover{color:var(--mist)}
+nav .btn{padding:9px 18px;border-radius:12px;font-size:15px;box-shadow:none}
+@media(max-width:760px){nav ul{display:none}}
+
+/* hero */
+.hero{position:relative;padding:72px 0 96px;overflow:hidden}
+.hero:before{content:"";position:absolute;width:900px;height:900px;right:-260px;top:-240px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 46px,rgba(10,186,181,.09) 47px 48px);mask:radial-gradient(circle,#000 30%,transparent 70%);-webkit-mask:radial-gradient(circle,#000 30%,transparent 70%);animation:spin 90s linear infinite}
+.hero:after{content:"";position:absolute;inset:auto -10% -40% -10%;height:70%;background:radial-gradient(ellipse at 50% 0,rgba(10,186,181,.18),transparent 65%)}
+.hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+h1{font-size:clamp(46px,7vw,84px);font-weight:800}
+.lead{font-size:19px;color:var(--dim);max-width:30em;margin:24px 0 34px}
+.cta{display:flex;flex-wrap:wrap;gap:14px}
+.meta{margin-top:22px;font-size:14px;color:var(--dim)}
+@media(max-width:860px){.hero .wrap{grid-template-columns:1fr}.hero{padding-top:44px}}
+
+/* phone */
+.phone{width:290px;aspect-ratio:9/18.5;margin:0 auto;border-radius:44px;padding:9px;background:linear-gradient(160deg,#2c3a3c,#121a1c);box-shadow:0 40px 90px -20px rgba(10,186,181,.35),0 0 0 1px rgba(255,255,255,.08);animation:float 7s ease-in-out infinite}
+.screen{position:relative;height:100%;border-radius:36px;overflow:hidden;background:var(--ink)}
+.screen>div{position:absolute;inset:0}
+.splash{display:grid;place-items:center;animation:out .6s 4.4s both}
+.splash svg{width:78%;overflow:visible}
+.o{fill:none;stroke:var(--tf);stroke-width:4;stroke-linecap:round;stroke-dasharray:1;animation:draw 1.7s .3s cubic-bezier(.6,0,.3,1) both}
+.f{fill:var(--tf);animation:fade .6s 2s both}
+.ic{fill:none;stroke:var(--slate);stroke-width:7;stroke-linecap:round;stroke-linejoin:round;animation:fade .7s 2.6s both}
+.wm text{font:800 21px 'Bricolage Grotesque',sans-serif}
+.wm tspan{animation:flick .5s both}
+.home{padding:30px 16px 0;display:flex;flex-direction:column;gap:12px;animation:inn .8s 4.6s both}
+.top{display:flex;justify-content:space-between;align-items:center}.top b{font:800 19px 'Bricolage Grotesque'}.top b i{font-style:normal;color:var(--tf)}
+.chip{font-size:9px;font-weight:600;border:1px solid var(--tf);color:var(--tf);border-radius:20px;padding:3px 9px}
+.hint{font-size:11px;color:var(--dim);line-height:1.5}
+.bar{display:flex;gap:6px;background:var(--deep);border:1px solid var(--line);border-radius:14px;padding:6px 6px 6px 12px;font-size:11px;color:var(--dim);align-items:center;justify-content:space-between}
+.bar span{background:var(--tf);color:#04201F;border-radius:9px;padding:6px 10px;font-weight:600}
+.dl{background:var(--tf);color:#04201F;text-align:center;font-weight:700;font-size:13px;border-radius:14px;padding:11px}
+.job{background:var(--deep);border-radius:16px;padding:12px;font-size:11px}
+.job p{display:flex;justify-content:space-between;margin-bottom:8px}.job em{font-style:normal;color:var(--tf)}
+.job div{height:6px;border-radius:6px;background:#1d2a2c;overflow:hidden}
+.job div i{display:block;height:100%;width:100%;background:var(--tf);border-radius:6px;transform-origin:left;animation:prog 5s 6s ease-in-out infinite}
+.pill{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);display:flex;gap:2px;padding:4px;border-radius:999px;background:#0c1012;border:1px solid rgba(255,255,255,.09)}
+.pill i{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;color:var(--dim)}.pill i.on{background:var(--tf);color:#04201F}
+.pill svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+
+/* sections */
+section{padding:96px 0}
+h2{font-size:clamp(34px,4.6vw,56px);font-weight:800;max-width:15em}
+.sub{color:var(--dim);max-width:34em;margin-top:18px}
+.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-top:52px}
+.t{grid-column:span 2;padding:28px;border-radius:26px;background:linear-gradient(170deg,var(--deep),#0c1315);border:1px solid rgba(255,255,255,.06);transition:border-color .3s}
+.t:hover{border-color:var(--tf)}
+.t.w{grid-column:span 3}.t.big{grid-column:span 4;background:linear-gradient(135deg,#0c3b3a,var(--deep) 70%);border-color:var(--line)}
+.t svg{width:30px;height:30px;stroke:var(--tf);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;margin-bottom:18px}
+.t h3{font-size:23px;margin-bottom:10px}.t p{color:var(--dim);font-size:16px}
+@media(max-width:860px){.t,.t.w,.t.big{grid-column:span 6}}
+.how{background:var(--deep);border-block:1px solid rgba(255,255,255,.05)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:56px}
+.s b{display:block;font:800 88px/1 'Bricolage Grotesque';color:transparent;-webkit-text-stroke:1.5px var(--tf);margin-bottom:12px}
+.s h3{font-size:24px;margin-bottom:8px}.s p{color:var(--dim)}
+@media(max-width:760px){.steps{grid-template-columns:1fr}}
+.sites{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
+.sites span{padding:11px 22px;border-radius:40px;border:1px solid var(--line);font-weight:500}
+.inst{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.inst ol{padding:0;list-style:none;counter-reset:n;display:grid;gap:14px}
+.inst li{counter-increment:n;display:grid;grid-template-columns:42px 1fr;gap:14px;padding:18px;border-radius:18px;background:var(--deep)}
+.inst li:before{content:counter(n);display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:var(--tf);color:#04201F;font-weight:700}
+.inst li strong{display:block}.inst li span{color:var(--dim);font-size:15px}
+@media(max-width:860px){.inst{grid-template-columns:1fr;gap:32px}}
+details{border-bottom:1px solid rgba(255,255,255,.08);padding:20px 0}
+summary{cursor:pointer;font:700 20px 'Bricolage Grotesque';list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::after{content:"+";color:var(--tf);font-size:26px;line-height:1;transition:transform .25s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{color:var(--dim);margin-top:12px;max-width:42em}
+.faq{max-width:780px;margin-top:40px}
+.end{text-align:center;background:radial-gradient(ellipse at 50% 100%,rgba(10,186,181,.25),transparent 65%)}
+.end h2{margin:0 auto}.end .cta{justify-content:center;margin-top:34px}
+footer{padding:36px 0 56px;color:var(--dim);font-size:13px;border-top:1px solid rgba(255,255,255,.06)}footer p{max-width:60em;margin-top:8px}
+
+.shots{display:flex;flex-wrap:wrap;gap:40px;justify-content:center;margin-top:56px}
+.shots figure{text-align:center;max-width:230px}
+.shots figcaption{margin-top:20px;font-weight:600}.shots figcaption span{display:block;font-weight:400;font-size:14px;color:var(--dim)}
+.phone.sm{width:230px;border-radius:38px;padding:8px;animation:none}.sm .screen{border-radius:31px}
+.pg{padding:28px 12px 0;font-size:10px;color:var(--dim);display:flex;flex-direction:column;gap:10px;text-align:left}
+.pg h4{font:800 17px 'Bricolage Grotesque';color:var(--mist)}
+.tabs{display:flex;gap:14px}.tabs b{color:var(--tf);border-bottom:2px solid var(--tf);padding-bottom:3px}
+.row{display:flex;gap:9px;align-items:center}.row i{width:40px;height:40px;border-radius:9px;flex:none}
+.row p{color:var(--mist);font-weight:600;font-size:11px;line-height:1.3}.row span{font-weight:400;color:var(--dim);font-size:9.5px}
+.art{aspect-ratio:1;border-radius:20px;margin:6px 6px 2px;background:linear-gradient(135deg,#0ABAB5,#17333a 60%,#2F3437)}
+.seek{height:4px;border-radius:4px;background:#1d2a2c}.seek i{display:block;width:38%;height:100%;background:var(--tf);border-radius:4px}
+.ctl{display:flex;justify-content:center;align-items:center;gap:22px;color:var(--mist)}.ctl svg{width:20px;height:20px;fill:currentColor}
+.ctl b{width:46px;height:46px;border-radius:50%;background:var(--tf);color:#04201F;display:grid;place-items:center}
+.pills{display:flex;gap:6px;justify-content:center}.pills span{border:1px solid var(--line);border-radius:20px;padding:3px 9px}
+footer a{color:var(--mist)}
+@keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes flick{0%{opacity:0}20%{opacity:1}35%{opacity:.15}55%{opacity:1}70%{opacity:.5}100%{opacity:1}}
+@keyframes out{from{opacity:1;visibility:visible}to{opacity:0;visibility:hidden}}
+@keyframes inn{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:none}}
+@keyframes prog{0%{transform:scaleX(.04)}85%,100%{transform:scaleX(1)}}
+@keyframes float{50%{transform:translateY(-10px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.splash{opacity:0;visibility:hidden}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.job div i{transform:scaleX(.64)}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="dn" viewBox="0 0 24 24"><path d="M12 4v11m-5-4 5 5 5-5M5 20h14"/></symbol>
+<symbol id="ih" viewBox="0 0 24 24"><path d="M3.6 11.2 12 3.9l8.4 7.3M5.8 9.6v8.8c0 1 .8 1.8 1.8 1.8h8.8c1 0 1.8-.8 1.8-1.8V9.6M10 20.2v-4.8c0-.7.5-1.2 1.2-1.2h1.6c.7 0 1.2.5 1.2 1.2v4.8"/></symbol>
+<symbol id="is" viewBox="0 0 24 24"><path d="M10.8 4.4a6.4 6.4 0 1 1 0 12.8 6.4 6.4 0 0 1 0-12.8zM15.6 15.6 20 20"/></symbol>
+<symbol id="il" viewBox="0 0 24 24"><path d="M9 3.7h6M6.4 6.5h11.2M6.2 9.4h11.6c1.4 0 2.6 1.2 2.6 2.6v5.6c0 1.4-1.2 2.6-2.6 2.6H6.2c-1.4 0-2.6-1.2-2.6-2.6V12c0-1.4 1.2-2.6 2.6-2.6zM10.7 12.7l3.8 2.1-3.8 2.1z"/></symbol></defs></svg>
+
+<nav><div class="wrap"><a class="brand" href="#top">Vid<b>Nest</b></a>
+<ul><li><a href="#features">Features</a></li><li><a href="#screens">Screens</a></li><li><a href="#how">How it works</a></li><li><a href="#install">Install</a></li><li><a href="#faq">FAQ</a></li><li><a href="privacy.html">Privacy</a></li></ul>
+<a class="btn apk" href="#"><svg stroke="currentColor" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><use href="#dn"/></svg>Download</a></div></nav>
+
+<header class="hero" id="top"><div class="wrap">
+<div>
+<h1>Paste a link. Keep the video.</h1>
+<p class="lead">VidNest saves videos and music from YouTube, Instagram, Facebook and more straight to your phone, in the quality you choose. Then it plays them for you.</p>
+<div class="cta"><a class="btn apk" href="#"><svg stroke="currentColor" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><use href="#dn"/></svg>Download APK</a><a class="btn ghost" href="#install">How to install</a></div>
+<p class="meta">Free · Version <span id="ver">1.0</span> · Android 7.0 or newer · No account needed</p>
+</div>
+<div class="phone" aria-label="VidNest app preview"><div class="screen">
+<div class="splash"><svg viewBox="0 0 200 175" aria-hidden="true">
+<rect class="f" x="30" y="14" width="140" height="100" rx="26"/>
+<rect class="o" pathLength="1" x="30" y="14" width="140" height="100" rx="26"/>
+<g class="ic"><path d="M100 36v6M100 50v28m-13-13 13 13 13-13"/><path d="M78 92v6q0 5 5 5h34q5 0 5-5v-6" stroke-width="5"/></g>
+<text class="wm" x="100" y="152" text-anchor="middle" font-size="22"><tspan style="animation-delay:3.1s" fill="#E6F2F1">V</tspan><tspan style="animation-delay:3.25s" fill="#E6F2F1">i</tspan><tspan style="animation-delay:3.4s" fill="#E6F2F1">d</tspan><tspan style="animation-delay:3.55s" fill="#0ABAB5">N</tspan><tspan style="animation-delay:3.7s" fill="#0ABAB5">e</tspan><tspan style="animation-delay:3.85s" fill="#0ABAB5">s</tspan><tspan style="animation-delay:4s" fill="#0ABAB5">t</tspan></text></svg></div>
+<div class="home"><div class="top"><b>Vid<i>Nest</i></b><span class="chip">GO AD-FREE</span></div>
+<p class="hint">Copy a link, tap the bar, tap Download.</p>
+<div class="bar">Tap to add a link</div><div class="dl">Download</div>
+<div class="job"><p><span>Trip highlights · 1080p</span><em>Downloading</em></p><div><i></i></div></div>
+<div class="job"><p><span>Road trip mix · MP3</span><em>Ready</em></p><div style="background:var(--tf)"></div></div>
+<div class="pill" aria-hidden="true"><i class="on"><svg><use href="#ih"/></svg></i><i><svg><use href="#is"/></svg></i><i><svg><use href="#il"/></svg></i></div></div>
+</div></div>
+</div></header>
+
+<section id="features"><div class="wrap">
+<h2>Everything from the link to the lock screen</h2>
+<p class="sub">One app to find, save, convert and play, with no tab switching and no clutter.</p>
+<div class="grid">
+<div class="t big"><svg viewBox="0 0 24 24"><use href="#dn"/></svg><h3>Pick the quality before you save</h3><p>Choose a video resolution to match your storage, or save just the sound as an audio file. VidNest shows the choices for every link, then gets on with it.</p></div>
+<div class="t"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg><h3>Download queue</h3><p>Add as many as you like. Several download together when your connection allows it, and you can watch every one in Library.</p></div>
+<div class="t"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="m10 9 5 3-5 3z"/></svg><h3>A library that looks after itself</h3><p>Thumbnails, titles, length, size and source. Search it, filter by video or audio, and see what is already on your phone.</p></div>
+<div class="t w"><svg viewBox="0 0 24 24"><path d="M9 18V6l10-2v12M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm10-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/></svg><h3>A real player</h3><p>Music keeps playing with the screen off. Picture-in-picture for video, next and previous, shuffle, repeat and a sleep timer for bedtime.</p></div>
+<div class="t w"><svg viewBox="0 0 24 24"><path d="M4 12h3l2-6 4 12 2-6h5"/></svg><h3>Video to MP3</h3><p>Turn any video into a music file, including ones you already have on your phone.</p></div>
+<div class="t w"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 8 3 8H3s3-1 3-8zM10 20h4"/></svg><h3>Works while you do something else</h3><p>Minimise the app and downloads carry on. Progress, conversions and now-playing sit in your notification bar.</p></div>
+</div></div></section>
+
+<section id="screens" style="padding-top:0"><div class="wrap"><h2>A look inside</h2>
+<p class="sub">Library, player and converter, all in the same dark teal and all one tap from home.</p>
+<div class="shots"><figure><div class="phone sm"><div class="screen"><div class="pg"><h4>Library</h4><div class="tabs"><span>Active</span><b>Downloaded</b><span>Local</span></div><div class="bar">Search your library</div><div class="row"><i style="background:linear-gradient(135deg,#0ABAB5,#17333a)"></i><div><p>Trip highlights</p><span>3:42 · 48 MB · YouTube</span></div></div><div class="row"><i style="background:linear-gradient(135deg,#2F3437,#0ABAB5)"></i><div><p>Road trip mix</p><span>1:02:10 · 58 MB · MP3</span></div></div><div class="row"><i style="background:linear-gradient(135deg,#17333a,#2F3437)"></i><div><p>Cooking in 10 minutes</p><span>10:05 · 92 MB · Facebook</span></div></div><div class="row"><i style="background:linear-gradient(135deg,#0ABAB5,#2F3437)"></i><div><p>Weekend clips</p><span>0:48 · 12 MB · Instagram</span></div></div><div class="pill" aria-hidden="true"><i><svg><use href="#ih"/></svg></i><i><svg><use href="#is"/></svg></i><i class="on"><svg><use href="#il"/></svg></i></div></div></div></div><figcaption>Library<span>Search, filter and play</span></figcaption></figure><figure><div class="phone sm"><div class="screen"><div class="pg"><h4>Now playing</h4><div class="art"></div><p style="color:var(--mist);font-weight:600;font-size:13px;text-align:center">Road trip mix</p><div class="seek"><i></i></div><div class="ctl"><svg viewBox="0 0 24 24"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg><b><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></b><svg viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></div><div class="pills"><span>Shuffle</span><span>Repeat</span><span>Sleep timer</span></div></div></div></div><figcaption>Player<span>Background audio and sleep timer</span></figcaption></figure><figure><div class="phone sm"><div class="screen"><div class="pg"><h4>Video to MP3</h4><div class="bar">Choose a video</div><div class="row"><i style="background:linear-gradient(135deg,#0ABAB5,#17333a)"></i><div><p>Trip highlights.mp4</p><span>48 MB</span></div></div><div class="dl">Convert to MP3</div><div class="job"><p><span>Extracting the sound</span><em>64%</em></p><div><i></i></div></div><div class="row"><i style="background:#0ABAB5"></i><div><p>Trip highlights.mp3</p><span>MP3 saved</span></div></div></div></div></div><figcaption>Video to MP3<span>Pull the sound out of any video</span></figcaption></figure></div></div></section>
+
+<section class="how" id="how"><div class="wrap">
+<h2>Three taps, and it is on your phone</h2>
+<div class="steps">
+<div class="s"><b>1</b><h3>Copy the link</h3><p>Use Share or Copy link in YouTube, Instagram, Facebook or any other app.</p></div>
+<div class="s"><b>2</b><h3>Paste it in VidNest</h3><p>Open VidNest and tap the link bar to paste it. It checks the link and offers the formats it found.</p></div>
+<div class="s"><b>3</b><h3>Tap Download</h3><p>Pick video or audio and the quality. It lands in your Library, ready to play.</p></div>
+</div>
+<div class="sites"><span>YouTube</span><span>Instagram</span><span>Facebook</span><span>Direct video links</span><span>And more</span></div>
+</div></section>
+
+<section id="install"><div class="wrap inst">
+<div><h2>Install in under a minute</h2><p class="sub">VidNest is installed from a file, not from an app store, so Android asks you to allow it once.</p><p class="sub"><a class="btn apk" href="#" style="margin-top:12px"><svg stroke="currentColor" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><use href="#dn"/></svg>Download APK</a></p></div>
+<ol>
+<li><div><strong>Download the file</strong><span>Tap Download APK. If your browser warns about the file type, choose Download anyway.</span></div></li>
+<li><div><strong>Allow installs from your browser</strong><span>Open the file. When Android asks, turn on Allow from this source for the browser you used.</span></div></li>
+<li><div><strong>Tap Install</strong><span>If Play Protect shows a notice, choose Install anyway. Apps from outside the Play Store always get this message.</span></div></li>
+<li><div><strong>Open VidNest</strong><span>Allow notifications when asked so you can see progress while the app is minimised.</span></div></li>
+</ol></div></section>
+
+<section id="faq" style="padding-top:0"><div class="wrap"><h2>Good to know</h2>
+<div class="faq">
+<details><summary>Is VidNest free?</summary><p>Yes. It is supported by ads. Tap Go ad-free in the app, watch one ad, and interstitial ads pause for 30 minutes.</p></details>
+<details><summary>Do I need an account?</summary><p>No. There is nothing to sign up for. Open the app, paste a link and download.</p></details>
+<details><summary>Which Android versions work?</summary><p>Android 7.0 and newer, on both 64-bit and 32-bit ARM phones, which is almost every phone made. Devices with Intel processors, such as some Chromebooks and emulators, are not supported.</p></details>
+<details><summary>Where are my downloads saved?</summary><p>Videos go to your phone's Movies folder and audio to the Music folder, each inside a VidNest folder, and everything shows in the Library tab of the app. Nothing is uploaded anywhere.</p></details>
+<details><summary>A link did not work. What now?</summary><p>Tap Retry first, since VidNest keeps itself up to date in the background. If it still fails, try a different link to the same video. Still stuck? Open VidNest, tap the i at the top right, then tap Copy support info. Then <a class="rep" href="#" style="color:var(--tf)">report a problem</a>, paste that text into the email and tell us which link failed.</p></details>
+</div></div></section>
+
+<section class="end"><div class="wrap"><h2>Your videos, on your phone, ready when you are</h2>
+<div class="cta"><a class="btn apk" href="#"><svg stroke="currentColor" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><use href="#dn"/></svg>Download VidNest for Android</a></div></div></section>
+
+<footer><div class="wrap"><strong>VidNest</strong>
+<p>Only download content you own or have permission to save, and follow the terms of the sites you use. VidNest is not affiliated with or endorsed by YouTube, Instagram, Facebook or any other service. All names belong to their owners.</p>
+<p><a href="privacy.html">Privacy policy</a> · <a class="rep" href="#">Report a problem</a></p><p>© <span id="yr">2026</span> VidNest</p></div></footer>
+
+<script>
+// Put the real link to your APK here (your own host, GitHub Releases, etc.) and update the version.
+var APK_URL="VidNest.apk", VERSION="1.0", CONTACT_EMAIL="vidnestsupport@gmail.com";
+// Real app screenshots: list your image files here (library, player, converter) to replace the drawn screens, e.g. ["shots/library.png","shots/player.png","shots/convert.png"]
+var SHOTS=[];
+SHOTS.forEach(function(u,i){var s=document.querySelectorAll("#screens .screen")[i];if(s&&u)s.innerHTML='<img src="'+u+'" alt="" style="width:100%;height:100%;object-fit:cover">'});
+document.querySelectorAll("a.rep").forEach(function(a){a.href="mailto:"+CONTACT_EMAIL+"?subject="+encodeURIComponent("VidNest problem")+"&body="+encodeURIComponent("What happened:\n\nLink or site:\n\nPhone and Android version:\n\nVidNest version: "+VERSION+"\n\nSupport info (in VidNest tap i, then Copy support info, then paste here):\n")});
+document.querySelectorAll("a.apk").forEach(function(a){a.href=APK_URL;a.setAttribute("download","VidNest.apk")});
+document.getElementById("ver").textContent=VERSION;
+document.getElementById("yr").textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
