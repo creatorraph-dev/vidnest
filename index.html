@@ -3,8 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>VidNest – Video downloader for Android</title>
+<title>VidNest – Video downloader for Android, by Raph Dev</title>
 <meta name="description" content="Paste a link, keep the video. VidNest saves videos and music from YouTube, Instagram, Facebook and more to your Android phone.">
+<meta name="author" content="Raph Dev">
 <meta name="theme-color" content="#0B0F11">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='10' width='52' height='44' rx='12' fill='%230ABAB5'/%3E%3Cpath d='M32 20v18m-8-6 8 8 8-8' stroke='%232F3437' stroke-width='5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,10 +27,17 @@ a{color:inherit}
 nav{position:sticky;top:0;z-index:20;background:rgba(11,15,17,.78);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.05)}
 nav .wrap{display:flex;align-items:center;justify-content:space-between;height:66px}
 .brand{font:800 22px 'Bricolage Grotesque',sans-serif;text-decoration:none}.brand b{color:var(--tf)}
-nav ul{display:flex;gap:26px;list-style:none;padding:0;font-size:15px;color:var(--dim)}
+nav ul{display:flex;gap:22px;list-style:none;padding:0;font-size:15px;color:var(--dim)}
 nav ul a{text-decoration:none}nav ul a:hover{color:var(--mist)}
 nav .btn{padding:9px 18px;border-radius:12px;font-size:15px;box-shadow:none}
-@media(max-width:760px){nav ul{display:none}}
+.bw{display:flex;align-items:center}
+.by{margin-left:14px;padding-left:14px;border-left:1px solid rgba(255,255,255,.14);font-size:13px;color:var(--dim);white-space:nowrap}
+.by b{color:var(--mist);font-weight:600}
+.navr{display:flex;align-items:center;gap:18px}
+.navpriv{display:none;font-size:15px;color:var(--dim);text-decoration:none}
+.navpriv:hover{color:var(--mist)}
+@media(max-width:1040px){.by{display:none}}
+@media(max-width:900px){nav ul{display:none}.navpriv{display:inline}}
 
 /* hero */
 .hero{position:relative;padding:72px 0 96px;overflow:hidden}
@@ -40,6 +48,14 @@ h1{font-size:clamp(46px,7vw,84px);font-weight:800}
 .lead{font-size:19px;color:var(--dim);max-width:30em;margin:24px 0 34px}
 .cta{display:flex;flex-wrap:wrap;gap:14px}
 .meta{margin-top:22px;font-size:14px;color:var(--dim)}
+.meta+.meta{margin-top:8px}
+.meta a{color:var(--mist);text-decoration-color:rgba(10,186,181,.55);text-underline-offset:3px}
+.meta a:hover{text-decoration-color:var(--tf)}
+.byline{display:inline-flex;align-items:center;gap:10px;margin-bottom:26px;padding:6px 18px 6px 6px;border:1px solid var(--line);border-radius:999px;font-size:15px;color:var(--dim);text-decoration:none;transition:border-color .2s}
+.byline:hover{border-color:var(--tf)}
+.byline strong{color:var(--mist);font-weight:600}
+.av{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--tf);color:#04201F;font:800 14px 'Bricolage Grotesque',sans-serif}
+.btn .sz{padding-left:12px;border-left:1px solid rgba(4,32,31,.3);font-weight:500;opacity:.8}
 @media(max-width:860px){.hero .wrap{grid-template-columns:1fr}.hero{padding-top:44px}}
 
 /* phone */
@@ -117,6 +133,48 @@ footer{padding:36px 0 56px;color:var(--dim);font-size:13px;border-top:1px solid 
 .ctl b{width:46px;height:46px;border-radius:50%;background:var(--tf);color:#04201F;display:grid;place-items:center}
 .pills{display:flex;gap:6px;justify-content:center}.pills span{border:1px solid var(--line);border-radius:20px;padding:3px 9px}
 footer a{color:var(--mist)}
+/* install: download facts */
+.inst .cta{margin-top:26px}
+.facts{margin-top:30px;padding:6px 22px;border:1px solid var(--line);border-radius:22px;background:var(--deep)}
+.facts>div{display:grid;grid-template-columns:104px 1fr;gap:12px;align-items:start;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:15px}
+.facts>div:last-child{border-bottom:0}
+.facts dt{color:var(--dim)}
+.facts dd{margin:0;color:var(--mist);font-weight:500}
+.inst li span a{color:var(--tf)}
+
+/* changelog */
+.log{display:grid;gap:18px;max-width:860px;margin-top:48px}
+.rel{padding:32px;border:1px solid rgba(255,255,255,.07);border-radius:26px;background:linear-gradient(170deg,var(--deep),#0c1315)}
+.rel.cur{border-color:var(--line)}
+.rel header{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px}
+.rel h3{font-size:32px}
+.tag{padding:3px 11px;border-radius:20px;background:var(--tf);color:#04201F;font:600 12px Figtree,system-ui,sans-serif}
+.rel .rm{margin-top:8px;font-size:15px;color:var(--dim)}
+.rel h4{margin:26px 0 10px;font:700 18px 'Bricolage Grotesque',Figtree,sans-serif;color:var(--mist)}
+.rel ul{display:grid;gap:8px;padding-left:20px;font-size:16px;color:var(--dim)}
+.rel li::marker{color:var(--tf)}
+.log details{padding:20px 4px}
+.log details ul{margin-top:14px;display:grid;gap:8px;padding-left:20px;color:var(--dim);font-size:16px}
+.log details li::marker{color:var(--tf)}
+.links-row{margin-top:22px;font-size:15px;color:var(--dim)}
+.links-row a{color:var(--tf)}
+
+/* developer + support */
+.who{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.contact{list-style:none;padding:0;border-top:1px solid rgba(255,255,255,.08)}
+.contact li{display:grid;grid-template-columns:140px 1fr;gap:12px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.contact span{color:var(--dim);font-size:15px}
+.contact b,.contact a{font-weight:600;color:var(--mist);overflow-wrap:anywhere}
+.contact a{text-decoration-color:rgba(10,186,181,.55);text-underline-offset:4px}
+.contact a:hover{text-decoration-color:var(--tf)}
+@media(max-width:860px){.who{grid-template-columns:1fr;gap:32px}.contact li{grid-template-columns:110px 1fr}}
+.end .meta{margin-top:20px}
+
+/* footer */
+.frow{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;font-size:15px}
+.frow strong{color:var(--mist)}
+footer .flinks{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:16px;font-size:14px}
+footer .flinks .fp{font-weight:600;color:var(--tf)}
 @keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
 @keyframes fade{from{opacity:0}to{opacity:1}}
 @keyframes flick{0%{opacity:0}20%{opacity:1}35%{opacity:.15}55%{opacity:1}70%{opacity:.5}100%{opacity:1}}
@@ -136,16 +194,18 @@ footer a{color:var(--mist)}
 <symbol id="is" viewBox="0 0 24 24"><path d="M10.8 4.4a6.4 6.4 0 1 1 0 12.8 6.4 6.4 0 0 1 0-12.8zM15.6 15.6 20 20"/></symbol>
 <symbol id="il" viewBox="0 0 24 24"><path d="M9 3.7h6M6.4 6.5h11.2M6.2 9.4h11.6c1.4 0 2.6 1.2 2.6 2.6v5.6c0 1.4-1.2 2.6-2.6 2.6H6.2c-1.4 0-2.6-1.2-2.6-2.6V12c0-1.4 1.2-2.6 2.6-2.6zM10.7 12.7l3.8 2.1-3.8 2.1z"/></symbol></defs></svg>
 
-<nav><div class="wrap"><a class="brand" href="#top">Vid<b>Nest</b></a>
-<ul><li><a href="#features">Features</a></li><li><a href="#screens">Screens</a></li><li><a href="#how">How it works</a></li><li><a href="#install">Install</a></li><li><a href="#faq">FAQ</a></li><li><a href="privacy.html">Privacy</a></li></ul>
-<a class="btn apk" href="https://github.com/creatorraph-dev/vidnest/releases/download/v1.0.0/VidNest.apk"><svg stroke="currentColor" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><use href="#dn"/></svg>Download</a></div></nav>
+<nav><div class="wrap"><div class="bw"><a class="brand" href="#top">Vid<b>Nest</b></a><span class="by">by <b>Raph Dev</b></span></div>
+<ul><li><a href="#features">Features</a></li><li><a href="#how">How it works</a></li><li><a href="#install">Install</a></li><li><a href="#changelog">Changelog</a></li><li><a href="#faq">FAQ</a></li><li><a href="#support">Support</a></li><li><a href="privacy.html">Privacy</a></li></ul>
+<div class="navr"><a class="navpriv" href="privacy.html">Privacy</a><a class="btn apk" href="https://github.com/creatorraph-dev/vidnest/releases/download/v1.0.0/VidNest.apk"><svg stroke="currentColor" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><use href="#dn"/></svg>Download</a></div></div></nav>
 
 <header class="hero" id="top"><div class="wrap">
 <div>
+<a class="byline" href="#support"><span class="av" aria-hidden="true">R</span><span>Developed by <strong>Raph Dev</strong></span></a>
 <h1>Paste a link. Keep the video.</h1>
 <p class="lead">VidNest saves videos and music from YouTube, Instagram, Facebook and more straight to your phone, in the quality you choose. Then it plays them for you.</p>
-<div class="cta"><a class="btn apk" href="https://github.com/creatorraph-dev/vidnest/releases/download/v1.0.0/VidNest.apk"><svg stroke="currentColor" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><use href="#dn"/></svg>Download APK</a><a class="btn ghost" href="#install">How to install</a></div>
-<p class="meta">Free · Version <span id="ver">1.0</span> · Android 7.0 or newer · No account needed</p>
+<div class="cta"><a class="btn apk" href="https://github.com/creatorraph-dev/vidnest/releases/download/v1.0.0/VidNest.apk"><svg stroke="currentColor" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><use href="#dn"/></svg>Download APK<span class="sz apksize">103 MB</span></a><a class="btn ghost" href="#install">How to install</a></div>
+<p class="meta">Free · Version <span class="ver">1.0</span> · <span class="apksize">103 MB</span> · Android 7.0 or newer · No account needed</p>
+<p class="meta"><a href="privacy.html">Privacy policy</a> · <a href="#changelog">What’s new</a> · <a class="mail" href="mailto:vidnestsupport@gmail.com">vidnestsupport@gmail.com</a></p>
 </div>
 <div class="phone" aria-label="VidNest app preview"><div class="screen">
 <div class="splash"><svg viewBox="0 0 200 175" aria-hidden="true">
@@ -189,39 +249,120 @@ footer a{color:var(--mist)}
 </div></section>
 
 <section id="install"><div class="wrap inst">
-<div><h2>Install in under a minute</h2><p class="sub">VidNest is installed from a file, not from an app store, so Android asks you to allow it once.</p><p class="sub"><a class="btn apk" href="https://github.com/creatorraph-dev/vidnest/releases/download/v1.0.0/VidNest.apk" style="margin-top:12px"><svg stroke="currentColor" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><use href="#dn"/></svg>Download APK</a></p></div>
+<div><h2>Install in under a minute</h2><p class="sub">VidNest is installed from a file, not from an app store, so Android asks you to allow it once and Play Protect may show a notice. Here is what to expect.</p>
+<div class="cta"><a class="btn apk" href="https://github.com/creatorraph-dev/vidnest/releases/download/v1.0.0/VidNest.apk"><svg stroke="currentColor" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><use href="#dn"/></svg>Download APK<span class="sz apksize">103 MB</span></a></div>
+<dl class="facts">
+<div><dt>Version</dt><dd class="ver">1.0</dd></div>
+<div><dt>File size</dt><dd class="apksize">103 MB</dd></div>
+<div><dt>Works on</dt><dd>Android 7.0 or newer</dd></div>
+<div><dt>Developer</dt><dd>Raph Dev</dd></div>
+</dl>
+</div>
 <ol>
-<li><div><strong>Download the file</strong><span>Tap Download APK. If your browser warns about the file type, choose Download anyway.</span></div></li>
+<li><div><strong>Download the file</strong><span>Tap Download APK. Your browser may say this type of file can harm your device. That message appears for every APK, so tap Download anyway or Keep.</span></div></li>
 <li><div><strong>Allow installs from your browser</strong><span>Open the file. When Android asks, turn on Allow from this source for the browser you used.</span></div></li>
-<li><div><strong>Tap Install</strong><span>If Play Protect shows a notice, choose Install anyway. Apps from outside the Play Store always get this message.</span></div></li>
+<li><div><strong>Tap Install</strong><span>Play Protect may show a notice because VidNest is not from the Play Store. This is normal for apps installed from a file. Tap More details, then Install anyway. You do not need to turn Play Protect off.</span></div></li>
 <li><div><strong>Open VidNest</strong><span>Allow notifications when asked so you can see progress while the app is minimised.</span></div></li>
 </ol></div></section>
+
+<section id="changelog" style="padding-top:0"><div class="wrap">
+<h2>What’s new</h2>
+<p class="sub">Every release of VidNest, newest first. VidNest does not update itself outside a store: when a new version is listed here, download it from this page and install it over the old one.</p>
+<div class="log">
+<!-- To add a release: copy the whole <article class="rel"> block below and put it above this one. On the older block, delete class "cur" and the Current tag. Then update VERSION, APK_URL and APK_SIZE in the script at the bottom of the page. -->
+<article class="rel cur">
+<header><h3>Version <span class="ver">1.0</span></h3><span class="tag">Current</span></header>
+<p class="rm">First public release · <span class="apksize">103 MB</span> · Android 7.0 or newer</p>
+<h4>Downloading</h4>
+<ul>
+<li>Paste a link, or share one to VidNest from another app, then pick a video quality (best, 1080p, 720p or 480p) or audio (MP3 or M4A).</li>
+<li>A download queue. Several downloads run at once when your connection allows, with live size, speed and time left.</li>
+<li>A “Download this?” offer when you copy a supported link. You can switch it off in Info.</li>
+<li>Search with suggestions and recent searches, so you can find a video without leaving the app.</li>
+<li>VidNest updates its download tools in the background and retries a failed link once on its own.</li>
+</ul>
+<h4>Library and player</h4>
+<ul>
+<li>A Library with thumbnails, length, size and source. Search, filter and sort it, and use the Local tab for the audio and video already on your phone.</li>
+<li>A video player with picture-in-picture, playback speed, rotate and double-tap to skip 10 seconds.</li>
+<li>A music player that keeps playing with the screen off, with notification and lock-screen controls, a mini-player, shuffle, repeat, a sleep timer and an All songs list.</li>
+</ul>
+<h4>Video to MP3</h4>
+<ul>
+<li>Turn any video on your phone into an MP3 at 128, 192, 256 or 320 kbps. Files are saved in Music/VidNest.</li>
+</ul>
+<h4>Background and notifications</h4>
+<ul>
+<li>Downloads and conversions carry on while VidNest is minimised, with progress and a Cancel button in the notification bar.</li>
+<li>If Android’s Data Saver could block the network in the background, VidNest tells you and points to the setting.</li>
+</ul>
+<h4>Privacy and support</h4>
+<ul>
+<li>No account or sign-up.</li>
+<li>Info, then Permissions and privacy, lists what each permission is for. Notifications are asked for once, and access to your audio and video only when you open Library, then Local.</li>
+<li>Copy support info puts a short report on your clipboard so you can paste it into an email. Nothing is sent automatically.</li>
+</ul>
+<h4>Compatibility</h4>
+<ul>
+<li>Android 7.0 and newer, on 64-bit and 32-bit ARM phones. Built for Android 16.</li>
+</ul>
+</article>
+<details><summary>Before 1.0</summary>
+<ul>
+<li>Downloads moved onto your phone, with no VidNest server in between.</li>
+<li>Audio downloads and Video to MP3 were added.</li>
+<li>A built-in video and music player replaced opening files in other apps.</li>
+<li>Notifications for downloads, conversions and now playing, and downloads that carry on in the background.</li>
+<li>The download queue, the Active, Downloaded and Local Library tabs, and the clipboard offer.</li>
+<li>The mini-player, shuffle, repeat, sleep timer, search suggestions and the icon-only navigation bar.</li>
+</ul></details>
+</div>
+<p class="links-row">Older files and release notes are also on <a href="https://github.com/creatorraph-dev/vidnest/releases" rel="noopener">GitHub</a>.</p>
+</div></section>
 
 <section id="faq" style="padding-top:0"><div class="wrap"><h2>Good to know</h2>
 <div class="faq">
 <details><summary>Is VidNest free?</summary><p>Yes. It is supported by ads. Tap Go ad-free in the app, watch one ad, and interstitial ads pause for 30 minutes.</p></details>
 <details><summary>Do I need an account?</summary><p>No. There is nothing to sign up for. Open the app, paste a link and download.</p></details>
+<details><summary>How do I know I have the real file?</summary><p>Download it from this page. Copies on other sites may have been changed. The file should be about 103 MB. If anything looks off, email <a class="mail" href="mailto:vidnestsupport@gmail.com" style="color:var(--tf)">vidnestsupport@gmail.com</a> before you install it.</p></details>
+<details><summary>Play Protect showed a notice. Is that normal?</summary><p>Yes. Play Protect shows a notice for apps it does not recognise, including any app installed from a file instead of the Play Store. Tap More details, then Install anyway. You do not need to turn Play Protect off. If it blocks the install completely, email <a class="mail" href="mailto:vidnestsupport@gmail.com" style="color:var(--tf)">vidnestsupport@gmail.com</a>.</p></details>
 <details><summary>Which Android versions work?</summary><p>Android 7.0 and newer, on both 64-bit and 32-bit ARM phones, which is almost every phone made. Devices with Intel processors, such as some Chromebooks and emulators, are not supported.</p></details>
 <details><summary>Where are my downloads saved?</summary><p>Videos go to your phone's Movies folder and audio to the Music folder, each inside a VidNest folder, and everything shows in the Library tab of the app. Nothing is uploaded anywhere.</p></details>
 <details><summary>A link did not work. What now?</summary><p>Tap Retry first, since VidNest keeps itself up to date in the background. If it still fails, try a different link to the same video. Still stuck? Open VidNest, tap the i at the top right, then tap Copy support info. Then <a class="rep" href="#" style="color:var(--tf)">report a problem</a>, paste that text into the email and tell us which link failed.</p></details>
 </div></div></section>
 
-<section class="end"><div class="wrap"><h2>Your videos, on your phone, ready when you are</h2>
-<div class="cta"><a class="btn apk" href="https://github.com/creatorraph-dev/vidnest/releases/download/v1.0.0/VidNest.apk"><svg stroke="currentColor" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><use href="#dn"/></svg>Download VidNest for Android</a></div></div></section>
+<section id="support"><div class="wrap who">
+<div><h2>Made and supported by Raph Dev</h2>
+<p class="sub">VidNest is developed and published by Raph Dev. Questions, problems and ideas all go to the same inbox, and the Report a problem button opens an email with the right questions already in it.</p>
+<div class="cta" style="margin-top:28px"><a class="btn rep" href="mailto:vidnestsupport@gmail.com?subject=VidNest%20problem">Report a problem</a></div></div>
+<ul class="contact">
+<li><span>Developer</span><b>Raph Dev</b></li>
+<li><span>Support email</span><a class="mail" href="mailto:vidnestsupport@gmail.com">vidnestsupport@gmail.com</a></li>
+<li><span>Privacy policy</span><a href="privacy.html">Read the privacy policy</a></li>
+<li><span>Version history</span><a href="#changelog">What’s new in each release</a></li>
+<li><span>Releases</span><a href="https://github.com/creatorraph-dev/vidnest/releases" rel="noopener">All versions on GitHub</a></li>
+</ul></div></section>
 
-<footer><div class="wrap"><strong>VidNest</strong>
+<section class="end"><div class="wrap"><h2>Your videos, on your phone, ready when you are</h2>
+<div class="cta"><a class="btn apk" href="https://github.com/creatorraph-dev/vidnest/releases/download/v1.0.0/VidNest.apk"><svg stroke="currentColor" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><use href="#dn"/></svg>Download VidNest for Android<span class="sz apksize">103 MB</span></a></div>
+<p class="meta">Version <span class="ver">1.0</span> by Raph Dev · <a href="#install">How to install</a> · <a href="privacy.html">Privacy policy</a></p></div></section>
+
+<footer><div class="wrap"><div class="frow"><strong>VidNest</strong><span>Developed by <b>Raph Dev</b></span></div>
+<p class="flinks"><a class="fp" href="privacy.html">Privacy policy</a><a href="#changelog">Changelog</a><a class="mail" href="mailto:vidnestsupport@gmail.com">vidnestsupport@gmail.com</a><a class="rep" href="#">Report a problem</a></p>
 <p>Only download content you own or have permission to save, and follow the terms of the sites you use. VidNest is not affiliated with or endorsed by YouTube, Instagram, Facebook or any other service. All names belong to their owners.</p>
-<p><a href="privacy.html">Privacy policy</a> · <a class="rep" href="#">Report a problem</a></p><p>© <span id="yr">2026</span> VidNest</p></div></footer>
+<p>© <span id="yr">2026</span> VidNest by Raph Dev</p></div></footer>
 
 <script>
-// Put the real link to your APK here (your own host, GitHub Releases, etc.) and update the version.
-var APK_URL="https://github.com/creatorraph-dev/vidnest/releases/download/v1.0.0/VidNest.apk", VERSION="1.0", CONTACT_EMAIL="vidnestsupport@gmail.com";
+// Release settings. Update these for every new release.
+var APK_URL="https://github.com/creatorraph-dev/vidnest/releases/download/v1.0.0/VidNest.apk", VERSION="1.0", CONTACT_EMAIL="vidnestsupport@gmail.com", APK_SIZE="103 MB";
 // Real app screenshots: list your image files here (library, player, converter) to replace the drawn screens, e.g. ["shots/library.png","shots/player.png","shots/convert.png"]
 var SHOTS=[];
 SHOTS.forEach(function(u,i){var s=document.querySelectorAll("#screens .screen")[i];if(s&&u)s.innerHTML='<img src="'+u+'" alt="" style="width:100%;height:100%;object-fit:cover">'});
 document.querySelectorAll("a.rep").forEach(function(a){a.href="mailto:"+CONTACT_EMAIL+"?subject="+encodeURIComponent("VidNest problem")+"&body="+encodeURIComponent("What happened:\n\nLink or site:\n\nPhone and Android version:\n\nVidNest version: "+VERSION+"\n\nSupport info (in VidNest tap i, then Copy support info, then paste here):\n")});
+document.querySelectorAll("a.mail").forEach(function(a){a.href="mailto:"+CONTACT_EMAIL;a.textContent=CONTACT_EMAIL});
 document.querySelectorAll("a.apk").forEach(function(a){a.href=APK_URL;a.removeAttribute("download")});
-document.getElementById("ver").textContent=VERSION;
+document.querySelectorAll(".ver").forEach(function(e){e.textContent=VERSION});
+document.querySelectorAll(".apksize").forEach(function(e){e.textContent=APK_SIZE});
 document.getElementById("yr").textContent=new Date().getFullYear();
 </script>
 </body>
